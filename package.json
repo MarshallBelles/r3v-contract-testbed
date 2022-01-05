@@ -1,0 +1,27 @@
+{
+  "name": "r3v-contract-testbed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jest.config.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarshallBelles/r3v-contract-testbed.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarshallBelles/r3v-contract-testbed/issues"
+  },
+  "homepage": "https://github.com/MarshallBelles/r3v-contract-testbed#readme",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.5.4"
+  }
+}
