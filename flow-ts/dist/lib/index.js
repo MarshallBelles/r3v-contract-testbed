@@ -634,7 +634,7 @@ var Flow = /** @class */ (function () {
                         var cb = function (err, res) {
                             if (err)
                                 p(err);
-                            p(res['account']);
+                            p(res);
                         };
                         if (typeof blockHeight == 'number') {
                             _this.work.push({
@@ -993,9 +993,9 @@ var FlowWorker = /** @class */ (function () {
     FlowWorker.prototype.getAccount = function (address) {
         var _this = this;
         return new Promise(function (p) {
-            if (typeof address == 'string')
-                address = buffer_1.Buffer.from(address, 'hex');
             _this.client.getAccountAtLatestBlock({ address: address }, function (err, res) {
+                if (err)
+                    return Promise.reject(err);
                 p(res['account']);
             });
         });

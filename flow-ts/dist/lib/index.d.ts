@@ -152,4 +152,3 @@ export declare class Flow {
     remove_contract(contractName: string, account: Proposal): Promise<TransactionResultResponse | Error>;
     get_block(blockId?: string, blockHeight?: number, sealed?: boolean): Promise<Block | Error>;
 }
-export {};
