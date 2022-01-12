@@ -1,4 +1,4 @@
-// Join us by visiting https://r3v.live
+// Join us by visiting https://r3volution.io
 pub contract R3VNFTS {
 
     pub event NFTMinted(id: Int, md: String)
