@@ -18,4 +18,6 @@ RUN chmod +x /usr/bin/flow
 
 ENV PATH="/usr/bin:/usr/bin/npm"
 
-RUN cd /contract-testbed && npm i && npm run test && npm run build
+RUN cd /contract-testbed && npm i
+
+ENTRYPOINT [ "npm", "run", "test:ci" ]

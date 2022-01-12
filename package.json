@@ -5,6 +5,7 @@
   "main": "jest.config.js",
   "scripts": {
     "test": "jest --detectOpenHandles",
+    "test:ci": "jest --forceExit",
     "test:watch": "jest --watch"
   },
   "repository": {

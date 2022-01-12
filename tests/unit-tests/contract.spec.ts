@@ -13,7 +13,7 @@ describe('ContractTesting', () => {
 
     beforeAll(async () => {
         // start emulator
-        emulator = exec('flow emulator');
+        emulator = exec('flow emulator -f flow.json');
         // wait 1 second
         await new Promise<void>((p) => setTimeout(p, 1000));
         const key0: FlowKey = {
@@ -46,7 +46,7 @@ describe('ContractTesting', () => {
         }
     });
 
-    afterAll(() => {
+    afterAll(async () => {
         // stop Flow
         flow.stop();
         emulator.kill();
