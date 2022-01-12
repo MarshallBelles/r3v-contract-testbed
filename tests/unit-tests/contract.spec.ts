@@ -2,7 +2,7 @@ import 'jest';
 import { Flow, FlowKey, FlowNetwork, Proposal, TransactionResultResponse } from '../../flow-ts';
 import * as fs from 'fs';
 import { exec, ChildProcess } from 'child_process';
-import { gzip, gunzip } from 'zlib';
+import { gzip } from 'zlib';
 
 describe('ContractTesting', () => {
     let flow: Flow;
@@ -66,14 +66,12 @@ describe('ContractTesting', () => {
             // service account
             .replace(/[$](service)/g, svc.address.toString('hex'));
 
-
-        // this is an example, used with permission
         const metadataForNFT1 = {
             ID: 1,                                                      // this is our R3V ID, not the NFT id
             DROP: 1,                                                    // this is the R3V Drop ID
             ARTISTS: "Various Artists",                                 // artist names (Multiple = 5+, Various = 20+)
-            VENUE: "BLACK FRET",                                        // venue name
-            EVENT: "BLACK FRET BALL",                                   // the event
+            VENUE: "LOCAL VENUE",                                       // venue name
+            EVENT: "LOCAL EVENT",                                       // the event
             DATE: "1638921600",                                         // epoch timestamp, no milliseconds
             IPFS: "QmUSxtU3h27vfbnSELhK2xTkb3PvxD9XVVJjfRnJ5HFJ45",     // the IPFS hash for the video file (always .mp4)
         }
@@ -82,8 +80,8 @@ describe('ContractTesting', () => {
             ID: 2,                                                      // this is our R3V ID, not the NFT id
             DROP: 1,                                                    // this is the R3V Drop ID
             ARTISTS: "Various Artists",                                 // artist names (Multiple = 5+, Various = 20+)
-            VENUE: "BLACK FRET",                                        // venue name
-            EVENT: "BLACK FRET BALL",                                   // the event
+            VENUE: "LOCAL VENUE",                                       // venue name
+            EVENT: "LOCAL EVENT",                                       // the event
             DATE: "1638921600",                                         // epoch timestamp, no milliseconds
             IPFS: "QmUSxtU3h27vfbnSELhK2xTkb3PvxD9XVVJjfRnJ5HFJ45",     // the IPFS hash for the video file (always .mp4)
         }
@@ -147,6 +145,6 @@ describe('ContractTesting', () => {
             .replace(/[$](account)/g, usr1.address.toString('hex'));
         const scRes = await flow.execute_script(script, [[1]]);
         if (scRes instanceof Error) return Promise.reject(scRes);
-        console.log(scRes);
+        expect(scRes.value[0].value).toBe('1f8b080000000000001355ccb10e82301804e05721ffcc40a9a0b0155b22d0686d4be32a03018d98009226c677b7b8b95dbebbdc1b0a0a29f281ca93f8052275a1b48214cc75ec9fafc923e3dc4ff3043e1876ac996b324ef695974ba61d32a7fa0fbd8c70ee1a4af4ba4631de25218a83c05921f2f5fbfca8959d6bdc85dba56d06c578578556df1b2c164b938b31e5ad9543191df27213c1e70bb03a396ca8000000');
     });
 });
