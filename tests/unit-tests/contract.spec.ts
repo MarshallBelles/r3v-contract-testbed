@@ -57,17 +57,17 @@ describe('ContractTesting', () => {
         emulator.kill();
     });
 
-    it('C_R3VNFTS should deploy', async () => {
+    it('R3VNFTS.cdc should deploy', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const contract: string = fs.readFileSync('cadence/C_R3VNFTS.cdc').toString('utf-8');
+        const contract: string = fs.readFileSync('cadence/contracts/R3VNFTS.cdc').toString('utf-8');
         const txRes = await flow.add_contract('R3VNFTS', contract, svc);
         expect(txRes).not.toBeInstanceOf(Error);
         expect((txRes as TransactionResultResponse).events.filter(x => x.type == 'flow.AccountContractAdded').length).toBe(1);
     });
 
-    it('T_MINT_NFTS should work', async () => {
+    it('mintNFTs.cdc should work', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const transaction: string = fs.readFileSync('cadence/T_MINT_NFTS.cdc').toString('utf-8')
+        const transaction: string = fs.readFileSync('cadence/transactions/mintNFTs.cdc').toString('utf-8')
             // service account
             .replace(/[$](service)/g, svc.address);
 
@@ -101,9 +101,9 @@ describe('ContractTesting', () => {
         if (txRes.events.length != 4) return Promise.reject(Error('invalid number of events, expected 4:' + JSON.stringify(txRes.events, null, 2)))
     });
 
-    it('T_SETUP should work', async () => {
+    it('setup.cdc should work', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const transaction: string = fs.readFileSync('cadence/T_SETUP.cdc').toString('utf-8')
+        const transaction: string = fs.readFileSync('cadence/transactions/setup.cdc').toString('utf-8')
             // service account
             .replace(/[$](service)/g, svc.address);
         const txRes = await flow.execute_transaction(transaction, [], [usr1]);
@@ -114,9 +114,9 @@ describe('ContractTesting', () => {
         if (txRes2.status_code != 0) return Promise.reject(Error(txRes2.error_message));
     });
 
-    it('T_TRANSFER_NFT should work', async () => {
+    it('transferNFT.cdc should work', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const transaction: string = fs.readFileSync('cadence/T_TRANSFER_NFT.cdc').toString('utf-8')
+        const transaction: string = fs.readFileSync('cadence/transactions/transferNFT.cdc').toString('utf-8')
             // service account
             .replace(/[$](service)/g, svc.address)
             // buyer account
@@ -128,9 +128,9 @@ describe('ContractTesting', () => {
         // expect((txRes as TransactionResultResponse).events.filter(x => x.type == 'flow.AccountContractAdded').length).toBe(1);
     });
 
-    it('S_GET_IDS should work', async () => {
+    it('getIDs.cdc should work', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const script: string = fs.readFileSync('cadence/S_GET_IDS.cdc').toString('utf-8')
+        const script: string = fs.readFileSync('cadence/scripts/getIDs.cdc').toString('utf-8')
             // service account
             .replace(/[$](service)/g, svc.address)
             // account to check
@@ -141,9 +141,9 @@ describe('ContractTesting', () => {
         // expect nft id 1
     });
 
-    it('S_GET_NFTS should work', async () => {
+    it('getNFTs.cdc should work', async () => {
         expect(flow).toBeInstanceOf(Flow);
-        const script: string = fs.readFileSync('cadence/S_GET_NFTS.cdc').toString('utf-8')
+        const script: string = fs.readFileSync('cadence/scripts/getNFTs.cdc').toString('utf-8')
             // service account
             .replace(/[$](service)/g, svc.address)
             // account to check
