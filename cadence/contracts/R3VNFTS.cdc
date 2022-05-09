@@ -2,14 +2,14 @@
 pub contract R3VNFTS {
 
     pub event NFTMinted(id: Int, md: String)
-    pub event NFTWithdraw(id: Int, md: String)
-    pub event NFTDeposit(id: Int, md: String)
+    pub event NFTWithdraw(id: Int, md: String, acct: String)
+    pub event NFTDeposit(id: Int, md: String, acct: String)
 
     // the R3V NFT resource
     pub resource NFT {
         // our unique NFT serial number
         pub let id: Int
-        // our metadata is a hex-encoded gzipped JSON string
+        // our metadata is the base64 of our JSON string
         pub let metadata: String
         init(id: Int, metadata: String) {
             self.id = id
@@ -61,15 +61,19 @@ pub contract R3VNFTS {
 
         // withdrawal NFT from the Collection.ownedNFTs map
         pub fun withdraw(withdrawID: Int): @NFT {
+            let location = self.owner!.address.toString();
             let token <- self.ownedNFTs.remove(key: withdrawID)!
-            emit NFTWithdraw(id: token.id, md: token.metadata)
+            emit NFTWithdraw(id: token.id, md: token.metadata, acct: location)
             return <-token
         }
         
         // deposit NFT into this Collection.ownedNFTs map
         pub fun deposit(token: @NFT) {
-            emit NFTDeposit(id: token.id, md: token.metadata)
-            self.ownedNFTs[token.id] <-! token
+            let id = token.id;
+            let md = token.metadata;
+            self.ownedNFTs[token.id] <-! token;
+            let location = self.owner!.address.toString();
+            emit NFTDeposit(id: id, md: md, acct: location)
         }
 
         // returns a Bool on whether the provided ID exists within this Collection.ownedNFTs.keys

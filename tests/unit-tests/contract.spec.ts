@@ -13,14 +13,14 @@ describe('ContractTesting', () => {
 
     beforeAll(async () => {
         // start emulator
-        emulator = exec('flow emulator');
+        // emulator = exec('flow emulator');
         // wait 1 second
         await new Promise<void>((p) => setTimeout(p, 1000));
         svc = {
             id: 0,
             address: 'f8d6e0586b0a20c7',
-            private_key: Buffer.from('ec8cd232a763fb481711a0f9ce7d1241c7bc3865689afb31e6b213d781642ea7', 'hex'),
-            public_key: Buffer.from('81c12390330fdbb55340911b812b50ce7795eefe5478bc5659429f41bdf83d8b6b50f9acc730b9cae67dc29e594ade93cac33f085f07275b8d45331a754497dd', 'hex'),
+            private_key: Buffer.from('b456bc1273380930d7839559c8026d3ba8e6418b9d040bd7021f1eb8d67bcf75', 'hex'),
+            public_key: Buffer.from('a6a1f28c43c89e8d04643378c93da88b52bf09c862d30a957ee403f1e7d3a6ab3723427c2bae6d13ec019e9ef892f0130caab47cae0da6b8da68f98be95d47fe', 'hex'),
             hash_algo: 3,
             sign_algo: 2,
             weight: 1000,
@@ -54,7 +54,7 @@ describe('ContractTesting', () => {
     afterAll(async () => {
         // stop Flow
         flow.stop();
-        emulator.kill();
+        // emulator.kill();
     });
 
     it('R3VNFTS.cdc should deploy', async () => {
